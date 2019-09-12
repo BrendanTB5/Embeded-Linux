@@ -23,6 +23,6 @@ clear : clears the board
 ## Prof. Yoder's comments
 
 Everything looks good.  Nice etch-a-sketch, thought it's awkward typing the whole name.
-No post on main Google Group
+No write permission on repo.
 
-Grade:  10/10
+Grade:  9/10
