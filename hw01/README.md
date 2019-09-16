@@ -20,3 +20,9 @@ right : moves player right
 clear : clears the board
 
 
+## Prof. Yoder's comments
+
+Everything looks good.  Nice etch-a-sketch, thought it's awkward typing the whole name.
+No write permission on repo.
+
+Grade:  9/10
