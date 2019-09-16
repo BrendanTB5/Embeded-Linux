@@ -4,7 +4,7 @@ TOOLS_CFLAGS	:= -Wstrict-prototypes -Wshadow -Wpointer-arith -Wcast-qual \
 #
 # Programs
 #
-all:	gpio-int-test togglegpio ncurses
+all:	 togglegpio 
 
 gpio-int-test:  gpio-int-test.o gpio-utils.o
 	$(CC) $(LDFLAGS) -o $@ $^
