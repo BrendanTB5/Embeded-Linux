@@ -47,18 +47,22 @@ def mycallback(channel):
 
 #This goes throguh the board and prints the lines and seperates them into rows corectly
 def printer(grid):
+    print("■" * 42)
+    
     for row in grid:
         for e in row:
             print(e , end =" ")
         print()
+        
+    #print("■" * 42)
 
 
 def clearBoard(channel):
     global board
     global playerX
     global playerY
-    n = 11
-    m = 11
+    n = 21
+    m = 21
     board = [['-'] * m for i in range(n)]
     
     board[playerY][playerX] = 'P'
@@ -137,10 +141,10 @@ def main():
 if __name__ == "__main__":
     """ This is executed when run from the command line """
      #This is the size of the board and the init player location
-    n = 11
-    m = 11
-    playerX = 6
-    playerY = 6
+    n = 21
+    m = 21
+    playerX = 10
+    playerY = 10
     
      #This initialized the board to null and then adds the player's location
     board = [['-'] * m for i in range(n)]
