@@ -5,64 +5,44 @@ ECE 434- HW #2
 """
 
 import Adafruit_BBIO.GPIO as GPIO
+from Adafruit_BBIO.Encoder import RotaryEncoder, eQEP2, eQEP1
 import time
-
-
-left = "P9_11"
-up = "P9_12"
-down = "P9_13"
-right= "P9_14"
-clear = "P9_21"
+import smbus
+from subprocess import call
 
 
 
 
-
-
-
-def mycallback(channel):
-    
-    global playerX
-    global playerY
+def clearBoard():
+    global red
+    global green
     global board
     
-    board[playerY][playerX] = 'X'
+    green = [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]
+    red = [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]
+    
+    board = [ [0] * 8 for _ in range(8)]
+    
+    displayBoard()
     
     
-    if channel == up:
-        playerY = playerY - 1
-    elif channel == down:
-        playerY = playerY + 1
-    elif channel == left:
-        playerX = playerX - 1
-    elif channel == right:
-        playerX += 1
-    elif channel == clear:
-        clearBoard("P9_10")
-        
-        
-    board[playerY][playerX] = 'P'
-    printer(board)
-
-
-#This goes throguh the board and prints the lines and seperates them into rows corectly
-def printer(grid):
-    for row in grid:
-        for e in row:
-            print(e , end =" ")
-        print()
-
-
-def clearBoard(channel):
-    global board
-    global playerX
-    global playerY
-    n = 11
-    m = 11
-    board = [['-'] * m for i in range(n)]
+def displayBoard():
     
-    board[playerY][playerX] = 'P'
-    printer(board)
+    global VertMatrix
+    global green
+    global red
+    
+    PosMatrix = [0x00,0x02,0x04,0x06,0x08,0x0A,0x0C,0x0E]
+    
+    green = [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]
+    
+    for i in range(8):
+        for j in range(8):
+            green[i] += board[i][j] *  VertMatrix[j]
+    
+    for i in range(8):
+        bus.write_i2c_block_data(matrix,PosMatrix[i],[green[i],red[i]])
+    
 
 
 def main():
@@ -71,36 +51,17 @@ def main():
     
     global playerX
     global playerY
-    
-   
-    
-    
-   
     global board
+    
+   
     
     
 
-    
-    
-    
-    
-    GPIO.setup(up, GPIO.IN)
-    GPIO.setup(down, GPIO.IN)
-    GPIO.setup(left, GPIO.IN)
-    GPIO.setup(right, GPIO.IN)
-    GPIO.setup(clear, GPIO.IN)
-    
-    GPIO.add_event_detect(left, GPIO.RISING,callback=mycallback, bouncetime=500)
-    GPIO.add_event_detect(up, GPIO.RISING,callback=mycallback, bouncetime=500)
-    GPIO.add_event_detect(down, GPIO.RISING,callback=mycallback, bouncetime=500)
-    GPIO.add_event_detect(right, GPIO.RISING,callback=mycallback, bouncetime=500)
-    GPIO.add_event_detect(clear, GPIO.RISING,callback=clearBoard, bouncetime=500)
+    global encoder1
+    global encoder2
         
    
-    
-    board[playerY][playerX] = 'P'
-    
-    printer(board)
+ 
     """
     
     while True:
@@ -124,25 +85,110 @@ def main():
             
     try:
         while True:
-            time.sleep(1)
+            time.sleep(.5)
+            global horiPos
+            global vertPos
+            global red
+            global green
+            global VertMatrix
+            
+            oldPlayerX = playerX
+            oldPlayerY = playerY
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            #clearBoard("P9_10")
+            
+            
+            if(encoder1.position < horiPos):
+                playerX += 1
+            elif(encoder1.position > horiPos):
+                playerX += -1
+            elif(encoder2.position < vertPos):
+                playerY += 1
+            elif(encoder2.position > vertPos):
+                playerY += -1
+            
+            
+            horiPos = encoder1.position
+            vertPos = encoder2.position
+            
+            playerX = clamp(playerX,0,7)
+            playerY = clamp(playerY,0,7)
+            
+            
+            
+            
+            red[oldPlayerX] = red[oldPlayerX] - VertMatrix[oldPlayerY]
+            red[playerX] = red[playerX] + VertMatrix[playerY]
+            
+            if(oldPlayerX != playerX or oldPlayerY != playerY):
+                board[playerX][playerY] = 1
+                
+            
+            
+            
+            print(red[playerX])
+            print(green[playerX])
+                
+            displayBoard()
             
     except KeyboardInterrupt:
         GPIO.cleanup()
     
             
-    
+def clamp(n, minn, maxn):
+    return max(min(maxn, n), minn)
     
 
 
 if __name__ == "__main__":
     """ This is executed when run from the command line """
      #This is the size of the board and the init player location
-    n = 11
-    m = 11
-    playerX = 6
-    playerY = 6
+     
+    
+    #call("./configPin.sh")
+    
+
+    playerX = 4
+    playerY = 4
+    
+    vertPos = 0
+    horiPos = 0
+    
+    bus = smbus.SMBus(2)
+    #address = 0x48
+    matrix = 0x70         # Use address 0x70
+    
+    bus.write_byte_data(matrix, 0x21, 0)   # Start oscillator (p10)
+    bus.write_byte_data(matrix, 0x81, 0)   # Disp on, blink off (p11)
+    bus.write_byte_data(matrix, 0xe7, 0)   # Full brightness (page 15)
+    
+    
+    greenboard =  [ [0] * 8 for _ in range(8)]
+    
+    VertMatrix = [0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80]
+    
+    green = [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]
+    red = [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]
+    
+
     
      #This initialized the board to null and then adds the player's location
-    board = [['-'] * m for i in range(n)]
+    clearBoard()
+    encoder1 = RotaryEncoder(eQEP1)
+    encoder2 = RotaryEncoder(eQEP2)
+    encoder1.setAbsolute()
+    encoder2.setAbsolute()
+    encoder1.enable()
+    encoder2.enable()
+    
+    red[playerX] = red[playerX] + VertMatrix[playerY]
     
     main()
