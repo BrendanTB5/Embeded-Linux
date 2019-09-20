@@ -19,7 +19,7 @@ def clearBoard():
     global board
     
     green = [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]
-    red = [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]
+    #red = [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]
     
     board = [ [0] * 8 for _ in range(8)]
     
@@ -96,7 +96,10 @@ def main():
             oldPlayerY = playerY
             
             
+            temp = bus.read_byte_data(address, 0)
             
+            if(temp >= 26):
+                clearBoard()
             
             
             
@@ -132,11 +135,6 @@ def main():
                 board[playerX][playerY] = 1
                 
             
-            
-            
-            print(red[playerX])
-            print(green[playerX])
-                
             displayBoard()
             
     except KeyboardInterrupt:
@@ -163,7 +161,7 @@ if __name__ == "__main__":
     horiPos = 0
     
     bus = smbus.SMBus(2)
-    #address = 0x48
+    address = 0x48
     matrix = 0x70         # Use address 0x70
     
     bus.write_byte_data(matrix, 0x21, 0)   # Start oscillator (p10)
