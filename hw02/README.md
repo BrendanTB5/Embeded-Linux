@@ -39,3 +39,9 @@ The final portiion of this homework was improving on the etch a sketch program. 
 Use these buttons to control the game board.
 
  
+## Prof. Yoder's comments
+
+Your table of times is missing.
+etch-a-sketch looks good.
+
+Grade:  8/10
