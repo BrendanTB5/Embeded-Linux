@@ -20,3 +20,9 @@ Running the program alertTemp.py will only read the temperature of a sensor when
 ## Problem 2 & 3
 
 For problems two and three the etchasketch.py program is used. The program is designed to interface with an 8x8 display at address 0x70. To move around the board, you have to use two encoders located at P8-11  P8-12 ;and  P8-33  P8-35. I also used a TMP101 sensor at address 0x48 as a clear sensor, with the sensor going off when the temperature goes above 26 degrees.
+
+## Prof. Yoder's comments
+
+Looks good.  
+
+Grade:  10/10
