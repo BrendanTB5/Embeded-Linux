@@ -1,0 +1,1 @@
+cmd_/home/debian/Documents/Embeded-Linux/hw05/KernelModules/hello.ko := ld -EL -r  -T ./scripts/module-common.lds --build-id  -T ./arch/arm/kernel/module.lds -o /home/debian/Documents/Embeded-Linux/hw05/KernelModules/hello.ko /home/debian/Documents/Embeded-Linux/hw05/KernelModules/hello.o /home/debian/Documents/Embeded-Linux/hw05/KernelModules/hello.mod.o ;  true
