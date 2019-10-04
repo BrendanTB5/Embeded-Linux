@@ -82,10 +82,10 @@ all: app.arm
 # ------ executable rule (.x) -------
 # -----------------------------------
 app.arm : app.o
-	/usr/bin/gcc -g app.o -o app.arm
-# $(CC) -g app.o -o app.arm
-# $(CC) $(CFLAGS) $(LINKER_FLAGS) $< -o $@
-# @echo; echo $@ successfully created; echo
+#/usr/bin/gcc -g app.o -o app.arm
+#$(CC) -g app.o -o app.arm
+	$(CC) $(CFLAGS) $(LINKER_FLAGS) $< -o $@
+	@echo; echo $@ successfully created; echo
 
 
 
@@ -93,11 +93,11 @@ app.arm : app.o
 # ---------------------------------------------------
 # ------ intermeditate object files rule (.o) -------
 # ---------------------------------------------------
-app.o : app.c
-	/usr/bin/gcc -g -c app.c -o app.o
-# $(CC) -g -c app.c -o app.o
-# %.o : %.c
-# $(CC) $(CFLAGS) -c $< -o $@
+#app.o : app.c
+#/usr/bin/gcc -g -c app.c -o app.o
+#$(CC) -g -c app.c -o app.o
+%.o : %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 
 
@@ -114,7 +114,6 @@ clean :
 	rm -rf app.arm
 	rm -rf app.o
 
-	
 
 
 # -------------------------------------
@@ -129,8 +128,5 @@ clean :
 
 .PHONY : test
 test:
-        @echo CC = $(CC)
-
-
-	
+	@echo CC = $(CC)
 
