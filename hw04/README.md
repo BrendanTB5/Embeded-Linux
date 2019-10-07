@@ -26,3 +26,9 @@ Here the MMAP is able to toggle the GPIO pin at a rate of about 9.71 MHz. This f
 ![Video Rotated](https://github.com/Thebester5/Embeded-Linux/blob/master/hw04/VideoRotate.jpg?raw=true "Video Rotate")
 
 ![Display Text](https://github.com/Thebester5/Embeded-Linux/blob/master/hw04/Text.jpg?raw=true "My Name")
+
+## Prof. Yoder's comments
+
+Very good.  Nice pictures.
+
+Grade:  10/10
