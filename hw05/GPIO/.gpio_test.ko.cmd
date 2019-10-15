@@ -1,0 +1,1 @@
+cmd_/home/debian/Documents/Embeded-Linux/hw05/GPIO/gpio_test.ko := ld -r  -EL -T ./scripts/module-common.lds -T ./arch/arm/kernel/module.lds --build-id  -o /home/debian/Documents/Embeded-Linux/hw05/GPIO/gpio_test.ko /home/debian/Documents/Embeded-Linux/hw05/GPIO/gpio_test.o /home/debian/Documents/Embeded-Linux/hw05/GPIO/gpio_test.mod.o ;  true

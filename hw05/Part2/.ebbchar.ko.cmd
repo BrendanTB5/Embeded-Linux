@@ -1,0 +1,1 @@
+cmd_/home/debian/Documents/Embeded-Linux/hw05/Part2/ebbchar.ko := ld -r  -EL -T ./scripts/module-common.lds -T ./arch/arm/kernel/module.lds --build-id  -o /home/debian/Documents/Embeded-Linux/hw05/Part2/ebbchar.ko /home/debian/Documents/Embeded-Linux/hw05/Part2/ebbchar.o /home/debian/Documents/Embeded-Linux/hw05/Part2/ebbchar.mod.o ;  true

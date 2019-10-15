@@ -1,0 +1,1 @@
+cmd_/home/debian/Documents/Embeded-Linux/hw05/GPIO/gpio_test.mod := { echo  /home/debian/Documents/Embeded-Linux/hw05/GPIO/gpio_test.o; echo; } > /home/debian/Documents/Embeded-Linux/hw05/GPIO/gpio_test.mod
