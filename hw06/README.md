@@ -37,3 +37,9 @@ This is because I was unable to utilize gcc in the RT kernel.
 [![](https://github.com/Thebester5/Embeded-Linux/blob/master/hw06/notbusy.png?raw=true)](https://github.com/Thebester5/Embeded-Linux/blob/master/hw06/notbusy.png?raw=true)
 
 While the responses look similar between the two kernels for both cases, the divert as time goes on. The RT kernel in the loaded case has a bound of about 105us, compared to the non RT kernel which does not seem to have a bound.This case also holds true for the nonloaded case.
+
+## Prof. Yoder's comments
+
+Looks good. Nice plots
+
+Grade:  10/10
