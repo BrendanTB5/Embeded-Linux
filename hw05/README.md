@@ -20,3 +20,10 @@ This is located in folder Part2. This module acts as a pipeline to transmit data
 This runs the GPIO kernel module. I have 2 buttons hooked up to 3.3V and P8_15 and P8_18. These will be set to pullup by the kernel module. The module then toggles the button states to LEDs that are connected to P9_12 and P9_14. These LEDs are connected to the beaglebobne through a 330 Ohm resistor, and then to ground.
 
 I have verified that this works, and both LEDs can be toggled at the same time.
+
+## Prof. Yoder's comments
+
+Looks good.
+
+Late: -1
+Grade:  9/10
