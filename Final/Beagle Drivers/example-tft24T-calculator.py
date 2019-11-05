@@ -4,21 +4,21 @@ from PIL import ImageDraw
 from PIL import ImageFont
 
 from lib_tft24T import TFT24T
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
+import Adafruit_BBIO.GPIO as GPIO
+#GPIO.setmode(GPIO.BCM)
+#GPIO.setwarnings(False)
 
-import spidev
+from Adafruit_BBIO.SPI import SPI
 from time import sleep
 
-DC = 22
-RST = 18
-LED = 23
-PEN = 24
+DC = "P9_15"
+RST = "P9_14"
+LED = "P9_26"
+PEN = "P9_16"
 
 
 
-TFT = TFT24T(spidev.SpiDev(), GPIO, landscape=False)
+TFT = TFT24T(SPI, GPIO, landscape=False)
 
 
 # Initialize display.

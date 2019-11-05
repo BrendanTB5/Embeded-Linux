@@ -52,7 +52,8 @@ image_buffer = None
 class TFT24T():
     def __init__(self, spi, gpio, landscape=False, calib_scale240=285, calib_scale320=384, calib_offset240=28, calib_offset320=25, margin=13):
         self.is_landscape = landscape
-        self._spi = spi
+        self._spi0 = spi(2,0)
+        self._spi1 = spi(2,1)
         self._gpio = gpio
          # Calibration scaling values from the calibration utility:
 	 # Makes touchscreen coordinates agree with TFT coordinates (240x320) for YOUR device
@@ -83,11 +84,11 @@ class TFT24T():
         return not self._gpio.input(self._pen)
 
     def readValue(self, channel):
-        self._spi.open(0, self._ce_tch)
-        self._spi.max_speed_hz=self._spi_speed_tch
+        self._spi1.open(2,0)
+        self._spi1.msh=self._spi_speed_tch
 
-        responseData = self._spi.xfer([channel , 0, 0])
-        self._spi.close()
+        responseData = self._spi1.xfer([channel , 0, 0])
+        self._spi1.close()
         return (responseData[1] << 5) | (responseData[2] >> 3)
         # Pick off the 12-bit reply
 
@@ -131,9 +132,13 @@ class TFT24T():
     def send2lcd(self, data, is_data=True, chunk_size=4096):
 
         # Set DC low for command, high for data.
-        self._gpio.output(self._dc, is_data)
-        self._spi.open(0, self._ce_lcd)
-        self._spi.max_speed_hz=self._spi_speed_lcd
+        if(is_data):
+            self._gpio.output(self._dc, self._gpio.HIGH)
+        else:
+            self._gpio.output(self._dc, self._gpio.LOW)
+        #self._gpio.output(self._dc, is_data)
+        self._spi0.open(2, 1)
+        self._spi0.max_speed_hz=self._spi_speed_lcd
 
         # Convert scalar argument to list so either can be passed as parameter.
         if isinstance(data, numbers.Number):
@@ -141,8 +146,8 @@ class TFT24T():
         # Write data a chunk at a time.
         for start in range(0, len(data), chunk_size):
             end = min(start+chunk_size, len(data))
-            self._spi.writebytes(data[start:end])
-        self._spi.close()
+            self._spi0.writebytes(data[start:end])
+        self._spi0.close()
 
     def command(self, data):
         """Write a byte or array of bytes to the display as command data."""
@@ -310,7 +315,10 @@ class TFT24T():
 
     def backlite(self, onoff):
         if self._led is not None:
-            self._gpio.output(self._led, onoff)
+            if(onoff):
+                self._gpio.output(self._led, self._gpio.HIGH)
+            else:
+                self._gpio.output(self._led,self._gpio.LOW)
 
     def image_to_data(self, image):
         """Generator function to convert a PIL image to 16-bit 565 RGB bytes."""
