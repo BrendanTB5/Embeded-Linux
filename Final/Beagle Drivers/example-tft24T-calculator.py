@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+# Example program turning the touch screen to a calculator
+# By: Brendan Mulholland
+
 
 from PIL import Image
 from PIL import ImageDraw

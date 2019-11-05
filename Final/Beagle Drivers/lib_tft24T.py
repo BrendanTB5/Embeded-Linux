@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # tft24T    V0.3 April 2015     Brian Lavery    TJCTM24024-SPI    2.4 inch Touch 320x240 SPI LCD
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -129,7 +130,7 @@ class TFT24T():
 
 #    TFT/LCD part
 
-    def send2lcd(self, data, is_data=True, chunk_size=4096):
+    def send2lcd(self, data, is_data=True, chunk_size=1024):
 
         # Set DC low for command, high for data.
         if(is_data):
@@ -138,7 +139,7 @@ class TFT24T():
             self._gpio.output(self._dc, self._gpio.LOW)
         #self._gpio.output(self._dc, is_data)
         self._spi0.open(2, 1)
-        self._spi0.max_speed_hz=self._spi_speed_lcd
+        self._spi0.msh=self._spi_speed_lcd
 
         # Convert scalar argument to list so either can be passed as parameter.
         if isinstance(data, numbers.Number):

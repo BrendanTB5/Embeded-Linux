@@ -8,7 +8,10 @@ import spidev
 from time import sleep
 
 # Raspberry Pi configuration.
-PEN = 24
+DC = "P9_15"
+RST = "P9_14"
+LED = "P9_26"
+PEN = "P9_16"
 
 TFT = TFT24T(spidev.SpiDev(), GPIO)
 # Raw touch output is intrinsically portrait mode
