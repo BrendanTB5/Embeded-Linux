@@ -1,14 +1,12 @@
 
 from lib_tft24T import TFT24T
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
+import Adafruit_BBIO.GPIO as GPIO
 
 import spidev
 from time import sleep
 
 # Raspberry Pi configuration.
-PEN = 24
+PEN = "P9_15"
 
 TFT = TFT24T(spidev.SpiDev(), GPIO)
 # Raw touch output is intrinsically portrait mode

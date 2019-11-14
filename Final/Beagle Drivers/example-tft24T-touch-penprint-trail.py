@@ -1,4 +1,4 @@
-
+C
 # A demo of LCD/TFT SCREEN DISPLAY with touch screen
 # A "penprint" is made to screen wherever the pen is touched to screen
 
@@ -7,11 +7,11 @@ from PIL import ImageDraw
 from PIL import ImageFont
 
 from lib_tft24T import TFT24T
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
+import Adafruit_BBIO.GPIO as GPIO
+#GPIO.setmode(GPIO.BCM)
+#GPIO.setwarnings(False)
 
-import spidev
+from Adafruit_BBIO.SPI import SPI
 from time import sleep
 
 DC = "P9_15"
@@ -21,7 +21,7 @@ PEN = "P9_16"
 
 
 
-TFT = TFT24T(spidev.SpiDev(), GPIO, landscape=False)
+TFT = TFT24T(SPI, GPIO, landscape=False)
 
 
 

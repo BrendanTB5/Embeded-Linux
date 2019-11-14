@@ -72,9 +72,8 @@ class TFT24T():
     Z1 = 0xB0
     Z2 = 0xC0
 
-    def initTOUCH(self, pen,  ce=1,  spi_speed=2000000):
+    def initTOUCH(self, pen,  ce=1):
         self._ce_tch = ce
-        self._spi_speed_tch=spi_speed
         self._pen = pen
         self._gpio.setup(pen, self._gpio.IN)
 
@@ -83,8 +82,7 @@ class TFT24T():
         return not self._gpio.input(self._pen)
 
     def readValue(self, channel):
-        self._spi.open(0, self._ce_tch)
-        self._spi.max_speed_hz=self._spi_speed_tch
+        self._spi.open(1, self._ce_tch)
 
         responseData = self._spi.xfer([channel , 0, 0])
         self._spi.close()

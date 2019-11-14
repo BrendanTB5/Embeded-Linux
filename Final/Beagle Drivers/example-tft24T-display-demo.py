@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # tft24T    V0.2 April 2015     Brian Lavery    TJCTM24024-SPI    2.4 inch Touch 320x240 SPI LCD
 
 #
@@ -15,24 +16,20 @@ from PIL import ImageDraw
 from PIL import ImageFont
 
 from lib_tft24T import TFT24T
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
+import Adafruit_BBIO.GPIO as GPIO
+#GPIO.setmode(GPIO.BCM)
+#GPIO.setwarnings(False)
 
-import spidev
+from Adafruit_BBIO.SPI import SPI
 from time import sleep
 
-# Raspberry Pi configuration.
-#For LCD TFT SCREEN:
-DC = 22
-RST = 18
-LED = 23
 
-#For PEN TOUCH:
-#   (nothing)
+DC = "P9_15"
+RST = "P9_14"
+LED = "P9_26"
+PEN = "P9_16"
 
-# Create TFT LCD/TOUCH object:
-TFT = TFT24T(spidev.SpiDev(), GPIO, landscape=False)
+TFT = TFT24T(SPI, GPIO, landscape=False)
 # If landscape=False or omitted, display defaults to portrait mode
 # This demo can work in landscape or portrait
 

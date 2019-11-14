@@ -1,19 +1,18 @@
-
+#!/usr/bin/env python3
 from lib_tft24T import TFT24T
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
+import Adafruit_BBIO.GPIO as GPIO
+#GPIO.setmode(GPIO.BCM)
+#GPIO.setwarnings(False)
 
-import spidev
+from Adafruit_BBIO.SPI import SPI
 from time import sleep
 
-# Raspberry Pi configuration.
-DC = "P9_15"
+#DC = "P9_15"
 RST = "P9_14"
 LED = "P9_26"
-PEN = "P9_16"
+PEN = "P9_15"
 
-TFT = TFT24T(spidev.SpiDev(), GPIO)
+TFT = TFT24T(SPI, GPIO, landscape=False)
 # Raw touch output is intrinsically portrait mode
 
 TFT.initTOUCH(PEN)
