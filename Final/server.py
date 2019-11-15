@@ -2,13 +2,27 @@
 
 import socket
 
+HOST = '0.0.0.0'
+PORT = 8080
+
 serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-serv.bind(('0.0.0.0', 8000))
+try:
+	serv.bind((HOST, PORT))
+
+except socket.error as msg:
+	print ('Bind failed. Error Code: ' + str(msg[0] + ' Message ' + msg[1]))
+	sys.exit()
+
+print ('Successfully bound to ' + str(HOST) + ' on port ' + str(PORT))
+
 serv.listen(5)
+print('Now listening...')
+
 
 while True:
     conn, addr = serv.accept()
+    print('Connected to ' + addr[0] + ': ' + str(addr[1]))
     from_client = ''
 
     while True:

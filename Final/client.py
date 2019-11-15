@@ -2,10 +2,13 @@
 
 import socket
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(('0.0.0.0', 8000))
+HOST = '0.0.0.0'
+PORT = 8080
 
-client.send("I am client\n".encode())
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect((HOST, PORT))
+
+client.send("Skate fast eat ass".encode())
 
 from_server = client.recv(4096)
 
