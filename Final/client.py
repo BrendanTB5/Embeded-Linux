@@ -3,12 +3,12 @@
 import socket
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(('0.0.0.0', 8080))
+client.connect(('0.0.0.0', 8000))
 
-client.send("I am CLIENT\n")
+client.send("I am client\n".encode())
 
 from_server = client.recv(4096)
 
 client.close()
 
-print from_server
+print (from_server)
