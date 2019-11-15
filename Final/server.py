@@ -2,7 +2,7 @@
 
 import socket
 
-HOST = '0.0.0.0'
+HOST = socket.gethostname()
 PORT = 8080
 
 serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -22,7 +22,7 @@ print('Now listening...')
 
 while True:
     conn, addr = serv.accept()
-    print('Connected to ' + addr[0] + ': ' + str(addr[1]))
+    print('Connected to ' + addr[0] + ':' + str(addr[1]))
     from_client = ''
 
     while True:
