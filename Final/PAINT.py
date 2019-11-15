@@ -27,7 +27,7 @@ class Paint(object):
         self.choose_size_button.grid(row=1, column=0)
 
         self.c = Canvas(self.root, bg='white', width=240, height=320)
-        self.c.grid(row=1, columnspan=5)
+        self.c.grid(row=1, columnspan=4)
 
         self.setup()
         self.root.mainloop()
