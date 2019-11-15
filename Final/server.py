@@ -1,30 +1,23 @@
 #!/usr/bin/env python3
 
-import socketserver as sockets
+import socket
 
-class MyTCPHandler(sockets.BaseRequestHandler):
-    """
-    The RequestHandler class for our server.
+serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    It is instantiated once per connection to the server, and must
-    override the handle() method to implement communication to the
-    client.
-    """
+serv.bind(('0.0.0.0', 8080))
+serv.listen(5)
 
-    def handle(self):
-        # self.request is the TCP socket connected to the client
-        self.data = self.request.recv(1024).strip()
-        print("{} wrote:".format(self.client_address[0]))
-        print(self.data)
-        # just send back the same data, but upper-cased
-        self.request.sendall(self.data.upper())
+while True:
+    conn, addr = serv.accept()
+    from_client = ''
 
-if __name__ == "__main__":
-    HOST, PORT = "localhost", 9999
+    while True:
+        data = conn.recv(4096)
+        if not data: break
+        from_client += data
+        print from_client
 
-    # Create the server, binding to localhost on port 9999
-    server = sockets.TCPServer((HOST, PORT), MyTCPHandler)
+        conn.send("I am SERVER\n")
 
-    # Activate the server; this will keep running until you
-    # interrupt the program with Ctrl-C
-    server.serve_forever()
+    conn.close()
+    print 'client disconnected'
