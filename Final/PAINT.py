@@ -86,11 +86,13 @@ class Paint(object):
                         print(x)
                         y = match.group(2)
                         print(y)
+
+                    paint_color = 'white' if self.eraser_on else color.group(0)
                     # current_x = data[1:2]
                     # current_y = data[4:6]
                     # color     = data[8:14]
                     # print(current_x, current_y, color)
-                    self.c.create_rectangle((x,y)*2, outline = color.group(0))
+                    self.c.create_rectangle((x,y)*2, outline = paint_color)
         
 		
 
