@@ -90,9 +90,7 @@ class Paint(object):
                     # current_y = data[4:6]
                     # color     = data[8:14]
                     # print(current_x, current_y, color)
-                    self.c.create_line(self.old_x, self.old_y, x, y,
-                                    width=self.line_width, fill=color.group(0),
-                                    capstyle=ROUND, smooth=TRUE, splinesteps=36) 
+                    self.c.create_rectangle((x,y)*2, outline = color.group(0))
         
 		
 
