@@ -41,7 +41,6 @@ list_of_clients = []
 def clientthread(conn, addr): 
 
 	# sends a message to the client whose user object is conn 
-	conn.send(("Welcome to this chatroom!").encode()) 
 
 	while True: 
 			try: 
@@ -54,8 +53,7 @@ def clientthread(conn, addr):
 					print("<" + addr[0] + "> " + message.decode())
 
 					# Calls broadcast function to send message to all 
-					message_to_send = ("<" + addr[0] + "> " + message).encode()
-					broadcast(message_to_send, conn) 
+					broadcast(message, conn) 
 
 				else: 
 					"""message may have no content if the connection 
@@ -70,7 +68,6 @@ clients who's object is not the same as the one sending
 the message """
 def broadcast(message, connection): 
 	for clients in list_of_clients: 
-		if clients!=connection: 
 			try: 
 				clients.send(message) 
 			except: 

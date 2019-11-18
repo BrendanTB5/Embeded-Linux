@@ -33,7 +33,7 @@ while True:
 			print(message) 
 		else: 
 			message = sys.stdin.readline() 
-			server.send(message.encode()) 
+			server.send(("#X#Y#R#G#B").encode()) 
 			sys.stdout.write("<You>") 
 			sys.stdout.write(message) 
 			sys.stdout.flush() 
